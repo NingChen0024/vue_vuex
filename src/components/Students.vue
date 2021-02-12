@@ -4,7 +4,10 @@
       <v-toolbar dark>
         <v-toolbar-title>Students</v-toolbar-title>
       </v-toolbar>
-      <v-list>
+
+      <v-progress-circular v-if="!$store.getters.isLoaded" color="purple"/>
+
+      <v-list v-if="$store.getters.isLoaded">
         <v-list-tile v-for="(student, index) in $store.getters.students" :to="'editStudent/' + index">
           <v-list-tile-content>
             <v-list-tile-title v-text="student.fullName"></v-list-tile-title>
