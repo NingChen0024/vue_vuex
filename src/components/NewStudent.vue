@@ -10,7 +10,7 @@
             <v-layout>
               <v-flex xs12 md4>
                 <v-text-field v-model="firstName" label="fName" required></v-text-field>
-                <v-text-field v-model="secondName" label="sName" required></v-text-field>
+                <v-text-field v-model="lastName" label="sName" required></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -31,12 +31,14 @@ export default {
   data() {
     return {
       firstName: "",
-      secondName: ""
+      lastName: ""
     };
   },
   methods: {
     async submit() {
-      axios.post("http://localhost:3000/students", { firstName: this.firstName, lastName: this.lastName });
+      const newStudent = (await axios.post("http://localhost:3000/students", { firstName: this.firstName, lastName: this.lastName })).data
+      console.log(newStudent)
+      this.$store.commit('addStudents', newStudent)
     }
   },
   components: {

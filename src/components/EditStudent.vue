@@ -12,8 +12,8 @@
           <v-container>
             <v-layout>
               <v-flex xs12 md4>
-                <v-text-field v-model="findStudent(this.$route.params.id).firstName" label="fName" required></v-text-field>
-                <v-text-field v-model="findStudent(this.$route.params.id).lastName" label="lName" required></v-text-field>
+                <v-text-field v-model="findStudent($route.params.id).firstName" label="fName" required></v-text-field>
+                <v-text-field v-model="findStudent($route.params.id).lastName" label="lName" required></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
