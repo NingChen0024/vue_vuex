@@ -1,36 +1,18 @@
 {
   "students": [
     {
-      "name": "Alex",
+      "firstName": "Alex",
+      "lastName": "Hamilton",
       "id": 0
     },
     {
       "id": 1,
-      "name": "Jane"
+      "firstName": "Jane",
+      "lastName": "jams"
     },
     {
-      "name": "Jill",
+      "name": "eee",
       "id": 2
-    },
-    {
-      "name": "Tom A",
-      "id": 3
-    },
-    {
-      "name": "kk",
-      "id": 4
-    },
-    {
-      "name": "pp",
-      "id": 5
-    },
-    {
-      "name": "wewe",
-      "id": 6
-    },
-    {
-      "name": "dwdw",
-      "id": 7
     }
   ]
 }
