@@ -6,7 +6,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state : {
-        students: []
+        students: [],
+        showError: false,
+        errorText:''
     },
     getters: {
       students : state => state.students.map(s => ({ 
@@ -26,12 +28,21 @@ export default new Vuex.Store({
         const index = state.students.findIndex(s => s.id == student.id)
         state.students[index] = student
         Vue.set(state.students, index, student)
+      },
+      showError(state, message){
+        state.showError = true
+        state.errorText = message
       }
     },
     actions: { 
       async getStudents(context){
-        const students = (await axios.get('http://localhost:3000/students')).data
-        context.commit('setStudents', students)
+        try{
+          const students = (await axios.get('http://localhost:3000/students')).data
+          context.commit('setStudents', students)
+        }catch (error) {
+          context.commit('showError', error)
+        }
+        
       },
       async createStudent(context, name){
         const newStudent = (await axios.post("http://localhost:3000/students", name)).data
