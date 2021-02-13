@@ -4,11 +4,22 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
+const errorSystem = {
+  state: {
+    show: false,
+    text:''
+  },
+  mutations: {
+    showError(state, message){
+      state.show = true
+      state.text = message
+    }
+  }
+}
+
 export default new Vuex.Store({
     state : {
-        students: [],
-        showError: false,
-        errorText:''
+      students: []
     },
     getters: {
       students : state => state.students.map(s => ({ 
@@ -28,10 +39,6 @@ export default new Vuex.Store({
         const index = state.students.findIndex(s => s.id == student.id)
         state.students[index] = student
         Vue.set(state.students, index, student)
-      },
-      showError(state, message){
-        state.showError = true
-        state.errorText = message
       }
     },
     actions: { 
@@ -52,5 +59,8 @@ export default new Vuex.Store({
         const student = ( await axios.put(`http://localhost:3000/students/${id}`, name)).data
         context.commit('editStudent', student)
       }
+    },
+    modules: {
+      error: errorSystem
     }
 })
