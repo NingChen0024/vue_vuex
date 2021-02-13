@@ -37,13 +37,8 @@ export default {
   },
   methods: {
     async submit() {
-      const newStudent = (await axios.post("http://localhost:3000/students", { firstName: this.firstName, lastName: this.lastName })).data
-      console.log(newStudent)
-      this.addStudents(newStudent)
-    },
-     ...mapMutations([
-      'addStudents'
-    ])
+      this.$store.dispatch('createStudent', {firstName: this.firstName, lastName: this.lastName})
+    }
   },
   components: {
       Students
