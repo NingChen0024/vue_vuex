@@ -21,9 +21,14 @@ export default new Vuex.Store({
       },
       addStudents(state, students){
         state.students.push(students) 
+      },
+      editStudent(state, student){
+        const index = state.students.findIndex(s => s.id == student.id)
+        state.students[index] = student
+        Vue.set(state.students, index, student)
       }
     },
-    actions: {
+    actions: { 
       async getStudents(context){
         const students = (await axios.get('http://localhost:3000/students')).data
         context.commit('setStudents', students)
@@ -31,6 +36,10 @@ export default new Vuex.Store({
       async createStudent(context, name){
         const newStudent = (await axios.post("http://localhost:3000/students", name)).data
         context.commit('addStudents', newStudent)
+      },
+      async editStudent(context, {id, name}){
+        const student = ( await axios.put(`http://localhost:3000/students/${id}`, name)).data
+        context.commit('editStudent', student)
       }
     }
 })

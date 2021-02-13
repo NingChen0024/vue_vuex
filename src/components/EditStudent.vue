@@ -12,8 +12,8 @@
           <v-container>
             <v-layout>
               <v-flex xs12 md4>
-                <v-text-field v-model="findStudent($route.params.id).firstName" label="fName" required></v-text-field>
-                <v-text-field v-model="findStudent($route.params.id).lastName" label="lName" required></v-text-field>
+                <v-text-field v-model="firstName" :value="findStudent($route.params.id).firstName" label="fName" required></v-text-field>
+                <v-text-field v-model="lastName" :value="findStudent($route.params.id).lastName" label="lName" required></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -27,13 +27,14 @@
 </template>
 
 <script>
-import axios from "axios";
 import Students from "./Students";
 import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
+      firstName:'',
+      lastName:''
     };
   },
   computed: {
@@ -47,7 +48,9 @@ export default {
   },
   methods: {
     async submit() {
-      axios.put(`http://localhost:3000/students/${this.$route.params.id}`, { firstName: this.student.firstName, lastName: this.student.lastName });
+      const firstName = this.firstName
+      const lastName = this.lastName
+      this.$store.dispatch('editStudent', {id: this.$route.params.id, name: {firstName, lastName}})
     }
   },
   components: {
